@@ -1,90 +1,39 @@
 #include "main.h"
 /**
- * printf_int - prints integer
- * @args: argument to print
- * Return: number of characters printed
- */
-int printf_int(va_list args)
-{
-	int n = va_arg(args, int);
-	int num, last = n % 10, digit, exp = 1;
-	int  i = 1;
-
-	n = n / 10;
-	num = n;
-
-	if (last < 0)
-	{
-		_putchar('-');
-		num = -num;
-		n = -n;
-		last = -last;
-		i++;
-	}
-	if (num > 0)
-	{
-		while (num / 10 != 0)
-		{
-			exp = exp * 10;
-			num = num / 10;
-		}
-		num = n;
-		while (exp > 0)
-		{
-			digit = num / exp;
-			_putchar(digit + '0');
-			num = num - (digit * exp);
-			exp = exp / 10;
-			i++;
-		}
-	}
-	_putchar(last + '0');
-
-	return (i);
-}
-
-/**
- * printf_dec - prints decimal
- * @args: argument to print
- * Return: number of characters printed
+ * printf_exclusive_string - print exclusuives string.
+ * @val: argumen t.
+ * Return: the length of the string.
  */
 
-int printf_dec(va_list args)
+int printf_exclusive_string(va_list val)
 {
-	int n = va_arg(args, int);
-	int num, last = n % 10, digit;
-	int  i = 1;
-	int exp = 1;
+	char *s;
+	int i, len = 0;
+	int cast;
 
-	n = n / 10;
-	num = n;
-
-	if (last < 0)
+	s = va_arg(val, char *);
+	if (s == NULL)
+		s = "(null)";
+	for (i = 0; s[i] != '\0'; i++)
 	{
-		_putchar('-');
-		num = -num;
-		n = -n;
-		last = -last;
-		i++;
-	}
-	if (num > 0)
-	{
-		while (num / 10 != 0)
+		if (s[i] < 32 || s[i] >= 127)
 		{
-			exp = exp * 10;
-			num = num / 10;
+			_putchar('\\');
+			_putchar('x');
+			len = len + 2;
+			cast = s[i];
+			if (cast < 16)
+			{
+				_putchar('0');
+				len++;
+			}
+			len = len + printf_HEX_aux(cast);
 		}
-		num = n;
-		while (exp > 0)
+		else
 		{
-			digit = num / exp;
-			_putchar(digit + '0');
-			num = num - (digit * exp);
-			exp = exp / 10;
-			i++;
+			_putchar(s[i]);
+			len++;
 		}
 	}
-	_putchar(last + '0');
-
-	return (i);
+	return (len);
 }
