@@ -1,90 +1,28 @@
 #include "main.h"
 /**
- * printf_int - prints integer
- * @args: argument to print
- * Return: number of characters printed
+ * _strlen - Returns the lenght of a string.
+ * @s: Type char pointer
+ * Return: c.
  */
-int printf_int(va_list args)
+int _strlen(char *s)
 {
-	int n = va_arg(args, int);
-	int num, last = n % 10, digit, exp = 1;
-	int  i = 1;
+	int c;
 
-	n = n / 10;
-	num = n;
+	for (c = 0; s[c] != 0; c++)
+		;
+	return (c);
 
-	if (last < 0)
-	{
-		_putchar('-');
-		num = -num;
-		n = -n;
-		last = -last;
-		i++;
-	}
-	if (num > 0)
-	{
-		while (num / 10 != 0)
-		{
-			exp = exp * 10;
-			num = num / 10;
-		}
-		num = n;
-		while (exp > 0)
-		{
-			digit = num / exp;
-			_putchar(digit + '0');
-			num = num - (digit * exp);
-			exp = exp / 10;
-			i++;
-		}
-	}
-	_putchar(last + '0');
-
-	return (i);
 }
-
 /**
- * printf_dec - prints decimal
- * @args: argument to print
- * Return: number of characters printed
+ * _strlenc - Strlen function but applied for constant char pointer s
+ * @s: Type char pointer
+ * Return: c
  */
-
-int printf_dec(va_list args)
+int _strlenc(const char *s)
 {
-	int n = va_arg(args, int);
-	int num, last = n % 10, digit;
-	int  i = 1;
-	int exp = 1;
+	int c;
 
-	n = n / 10;
-	num = n;
-
-	if (last < 0)
-	{
-		_putchar('-');
-		num = -num;
-		n = -n;
-		last = -last;
-		i++;
-	}
-	if (num > 0)
-	{
-		while (num / 10 != 0)
-		{
-			exp = exp * 10;
-			num = num / 10;
-		}
-		num = n;
-		while (exp > 0)
-		{
-			digit = num / exp;
-			_putchar(digit + '0');
-			num = num - (digit * exp);
-			exp = exp / 10;
-			i++;
-		}
-	}
-	_putchar(last + '0');
-
-	return (i);
+	for (c = 0; s[c] != 0; c++)
+		;
+	return (c);
 }
